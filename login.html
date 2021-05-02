@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="passport.png" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
-    <title>Explore!</title>
+    <title>Login</title>
 </head>
 <header>
     <ul>
@@ -16,9 +16,19 @@
       <li><a class="active" href="index.html">Home</a></li>
     </ul>
 </header>
-<body>
-  <div class="container">
-    <img class="banner_img" src="travel.jpg" alt="">
-  </div>
+<body class="login_body">
+        <div class="div_login">
+            <form class="login" action='javascript:void(0);'>
+                <h1>Login</h1>
+                <label for="">Usuário:</label>
+                <input id="in_usuario" type="text">
+
+                <label for="">Senha:</label>
+                <input id="in_senha" type="password">
+
+                <button onclick="entrar()">Entrar</button><br>
+                <!-- <a href="cadastro.html">Não tem cadastro?</a> -->
+            </form>
+        </div>
 </body>
 </html>
