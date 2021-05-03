@@ -9,7 +9,7 @@
 
 /* Início da página Home */
 
-.container{
+.container {
   width: 100%;
 }
 
@@ -74,16 +74,16 @@ header ul a img {
   font-weight: 600;
 }
 
-.login{
+.login {
   background-color: rgba(43, 59, 43, 0.623);
-  width: 40%;
+  width: 35%;
   margin: auto;
   height: 430px;
   margin-top: 100px; 
   border-radius: 8px;
 }
 
-.login h1{
+.login h1 {
   text-align: center;
   padding: 30px;
   font-size: 40px;
@@ -92,23 +92,23 @@ header ul a img {
 
 .login label {
   color: whitesmoke;
-  font-size: 25px;
+  font-size: 22px;
 }
 
-.login label, .login input{
+.login label, .login input {
   display: block;
   width: 90%;
   margin-left: 5%;
 }
 
-.login input{
+.login input {
   margin-bottom: 30px;
   height: 35px;
   border: solid 1px #dbd7d7;
   border-radius: 5px;
 }
 
-.login button{
+.login button {
   cursor: pointer;
   background-color: rgb(43, 59, 43);
   padding: 5px;
@@ -121,9 +121,102 @@ header ul a img {
   height: 40px;
 }
 
-.login a{
-  margin-left: 41%;
-  margin-top: 85px;
+.login a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  float: right;
 }
 
 /* Fim página de Login */
+
+/* Início página de Cadastro */
+
+.cadastro_body {
+  background-image: url("./cadastro-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.div_cadastro {
+  width: 100%;
+  height: 900px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Jost', sans-serif;
+  font-weight: 600;
+}
+
+.cadastro {
+  background-color: rgba(43, 59, 43, 0.623);
+  width: 35%;
+  margin: auto;
+  height: 880px;
+  margin-top: 70px; 
+  border-radius: 8px;
+  color: white;
+}
+
+.cadastro h1 {
+  text-align: center;
+  padding: 30px;
+  font-size: 40px;
+}
+
+.cadastro label, .cadastro input {
+  display: block;
+  width: 80%;
+  font-size: 22px;
+  margin: 10px;
+  margin-left: 9%;
+}
+
+.cadastro input {
+  margin-bottom: 28px;
+  height: 32px;
+  border: solid 1px #dbd7d7;
+  border-radius: 5px;
+}
+
+.cadastro button { 
+  cursor: pointer;
+  background-color: rgb(43, 59, 43);
+  padding: 5px;
+  width: 20%;
+  margin-left: 40%;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  height: 40px;
+}
+.cadastro a {
+  margin-top: 26px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  float: right;
+}
+
+.div_cadastro div {
+  margin-left: 10%;
+  float: left;
+}
+
+.div_cadastro fieldset {
+  width: 85%;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.div_cadastro fieldset legend {
+  font: 15px;
+}
+
+.div_cadastro fieldset input {
+  height: 18px;
+  margin: 0;
+}
+
+/* Fim página de Cadastro */

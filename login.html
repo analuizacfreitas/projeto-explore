@@ -21,13 +21,13 @@
             <form class="login" action='javascript:void(0);'>
                 <h1>Login</h1>
                 <label for="">Usuário:</label>
-                <input id="in_usuario" type="text">
+                <input id="in_usuario" type="text" required>
 
                 <label for="">Senha:</label>
-                <input id="in_senha" type="password">
+                <input id="in_senha" type="password" required>
 
-                <button onclick="entrar()">Entrar</button><br>
-                <!-- <a href="cadastro.html">Não tem cadastro?</a> -->
+                <button onclick="validarLogin()">Entrar</button><br><br>
+                <a href="cadastro.html">– Cadastre-se</a>
             </form>
         </div>
 </body>
