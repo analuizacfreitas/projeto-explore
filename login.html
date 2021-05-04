@@ -21,10 +21,10 @@
             <form class="login" action='javascript:void(0);'>
                 <h1>Login</h1>
                 <label for="">Usuário:</label>
-                <input id="in_usuario" type="text" required>
+                <input id="input_usuario" type="text" required>
 
                 <label for="">Senha:</label>
-                <input id="in_senha" type="password" required>
+                <input id="input_senha" type="password" required>
 
                 <button onclick="validarLogin()">Entrar</button><br><br>
                 <a href="cadastro.html">– Cadastre-se</a>
@@ -32,3 +32,19 @@
         </div>
 </body>
 </html>
+
+<script>
+
+    // Validação de Login
+    function validarLogin() {
+        var usuario = input_usuario.value;
+        var senha = input_senha.value;
+        
+        if (usuario == 'admin' && senha == 1234) {
+        window.location.href ='perfil.html';
+        } else {
+            alert('Usuário ou senha inválidos. Tente novamente.')
+        }
+    }
+
+</script>

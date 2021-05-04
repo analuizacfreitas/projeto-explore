@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="passport.png" type="image/x-icon">
+    <link rel="stylesheet" href="./style.css">
+    <title>Meu perfil</title>
+</head>
+<header>
+    <ul>
+      <a href="index.html"><img src="passport.png" alt=""></a>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="#">Estatísticas</a></li>
+      <li><a href="#">Explore</a></li>
+      <li><a class="active" href="index.html">Home</a></li>
+    </ul>
+</header>
+<body class="perfil_body">
+    <div class="div_perfil">
+        <h1>Meu perfil</h1><br>
+        <h2>Inclua ao seu perfil informações sobre viagens, livros e filmes</h2><br>
+        <div class="perfil_destinos">
+            Insira um destino já visitado: <input type="text" id="input_destino"> 
+            <button onclick="incluirDestino()">Incluir</button><br><br>
+            <div id="div_destinos"></div><br>
+            <div id="contador_destinos"></div><img src="" id="selo_destino"/>
+        </div>
+        <div class="perfil_livros">
+            Insira um livro já lido: <input type="text" id="input_livro"> 
+            <button onclick="incluirLivro()">Incluir</button><br><br>
+            <div id="div_livros"></div><br>
+            <div id="contador_livros"></div><img src="" id="selo_livro"/>
+        </div>
+        <div class="perfil_filmes">
+            Insira um filme já visto: <input type="text" id="input_filme"> 
+            <button onclick="incluirFilme()">Incluir</button><br><br>
+            <div id="div_filmes"></div><br>
+            <div id="contador_filmes"></div><img src="" id="selo_filme"/>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    var destino = "";
+    var contadorDestinos = 0;
+
+    function incluirDestino() {
+        destino = input_destino.value;
+        document.getElementById('div_destinos').innerHTML += `- ${destino}<br>`
+        document.getElementById('contador_destinos').innerHTML = `Você já visitou: ${++contadorDestinos} destinos`
+
+        if (contadorDestinos == 5) {
+            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Explorador!'`)
+            document.getElementById('selo_destino').src = "mountain.png"; 
+        }
+    }
+
+    var livro = "";
+    var contadorLivros = 0;
+
+    function incluirLivro() {
+        livro = input_livro.value;
+        document.getElementById('div_livros').innerHTML += `- ${livro}<br>`
+        document.getElementById('contador_livros').innerHTML = `Você já leu: ${++contadorLivros} livros`
+
+        if (contadorLivros == 5) {
+            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Leitor Nato!'`)
+            document.getElementById('selo_livro').src = "book.png"; 
+        }
+    }
+
+    var filme = "";
+    var contadorFilmes = 0;
+
+    function incluirFilme() {
+        filme = input_filme.value
+        document.getElementById('div_filmes').innerHTML += `- ${filme}<br>`
+        document.getElementById('contador_filmes').innerHTML = `Você já assistiu: ${++contadorFilmes} filmes`
+
+        if (contadorFilmes == 5) {
+            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Fã de cinema!'`)
+            document.getElementById('selo_filme').src = "popcorn.png"; 
+        }
+    }
+
+</script>
