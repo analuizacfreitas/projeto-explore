@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="passport.png" type="image/x-icon">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="images/passport.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
     <title>Meu perfil</title>
 </head>
 <header>
     <ul>
-      <a href="index.html"><img src="passport.png" alt=""></a>
+      <a href="index.html"><img src="images/passport.png" alt=""></a>
       <li><a href="login.html">Login</a></li>
       <li><a href="#">Estatísticas</a></li>
       <li><a href="#">Explore</a></li>
@@ -19,69 +19,51 @@
 <body class="perfil_body">
     <div class="div_perfil">
         <h1>Meu perfil</h1><br>
-        <h2>Inclua ao seu perfil informações sobre viagens, livros e filmes</h2><br>
-        <div class="perfil_destinos">
-            Insira um destino já visitado: <input type="text" id="input_destino"> 
-            <button onclick="incluirDestino()">Incluir</button><br><br>
-            <div id="div_destinos"></div><br>
-            <div id="contador_destinos"></div><img src="" id="selo_destino"/>
+        <h2>Inclua ao seu perfil destinos de viagens já realizadas e desejadas</h2><br>
+        <div class="perfil_destinosVisitados">
+            Insira um destino já visitado: <input type="text" id="input_destinoVisitado"> 
+            <button onclick="incluirDestinoVisitado()">Incluir</button><br><br>
+            <div id="div_destinosVisitados"></div><br>
+            <div id="contador_destinosVisitados"></div><img src="" id="selo_destinoVisitado"/>
         </div>
-        <div class="perfil_livros">
-            Insira um livro já lido: <input type="text" id="input_livro"> 
-            <button onclick="incluirLivro()">Incluir</button><br><br>
-            <div id="div_livros"></div><br>
-            <div id="contador_livros"></div><img src="" id="selo_livro"/>
-        </div>
-        <div class="perfil_filmes">
-            Insira um filme já visto: <input type="text" id="input_filme"> 
-            <button onclick="incluirFilme()">Incluir</button><br><br>
-            <div id="div_filmes"></div><br>
-            <div id="contador_filmes"></div><img src="" id="selo_filme"/>
+        <div class="perfil_destinosDesejados">
+            Insira um destino desejado: <input type="text" id="input_destinoDesejado"> 
+            <button onclick="incluirDestinoDesejado()">Incluir</button><br><br>
+            <div id="div_destinosDesejados"></div><br>
+            <div id="contador_destinosDesejados"></div><img src="" id="selo_destinoDesejado"/>
         </div>
     </div>
 </body>
 
 <script>
 
-    var destino = "";
-    var contadorDestinos = 0;
+    var destinoVisitado = "";
+    var contadorDestinosVisitados = 0;
+    document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${contadorDestinosVisitados} destinos`
 
-    function incluirDestino() {
-        destino = input_destino.value;
-        document.getElementById('div_destinos').innerHTML += `- ${destino}<br>`
-        document.getElementById('contador_destinos').innerHTML = `Você já visitou: ${++contadorDestinos} destinos`
+    function incluirDestinoVisitado() {
+        destinoVisitado = input_destinoVisitado.value;
+        document.getElementById('div_destinosVisitados').innerHTML += `- ${destinoVisitado}<br>`
+        document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${++contadorDestinosVisitados} destinos`
 
-        if (contadorDestinos == 5) {
+        if (contadorDestinosVisitados == 5) {
             alert(`Uau, parabéns! Você acaba de ganhar o selo 'Explorador!'`)
-            document.getElementById('selo_destino').src = "mountain.png"; 
+            document.getElementById('selo_destinoVisitado').src = "images/mountain.png"; 
         }
     }
 
-    var livro = "";
-    var contadorLivros = 0;
+    var destinoDesejado = "";
+    var contadorDestinosDesejados = 0;
+    document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${contadorDestinosDesejados} destinos`
 
-    function incluirLivro() {
-        livro = input_livro.value;
-        document.getElementById('div_livros').innerHTML += `- ${livro}<br>`
-        document.getElementById('contador_livros').innerHTML = `Você já leu: ${++contadorLivros} livros`
+    function incluirDestinoDesejado() {
+        destinoDesejado = input_destinoDesejado.value;
+        document.getElementById('div_destinosDesejados').innerHTML += `- ${destinoDesejado}<br>`
+        document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${++contadorDestinosDesejados} destinos`
 
-        if (contadorLivros == 5) {
-            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Leitor Nato!'`)
-            document.getElementById('selo_livro').src = "book.png"; 
-        }
-    }
-
-    var filme = "";
-    var contadorFilmes = 0;
-
-    function incluirFilme() {
-        filme = input_filme.value
-        document.getElementById('div_filmes').innerHTML += `- ${filme}<br>`
-        document.getElementById('contador_filmes').innerHTML = `Você já assistiu: ${++contadorFilmes} filmes`
-
-        if (contadorFilmes == 5) {
-            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Fã de cinema!'`)
-            document.getElementById('selo_filme').src = "popcorn.png"; 
+        if (contadorDestinosDesejados == 5) {
+            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Pesquisador de destinos!'`)
+            document.getElementById('selo_destinoDesejado').src = "images/book.png"; 
         }
     }
 
