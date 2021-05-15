@@ -39,33 +39,34 @@
 
 <script>
 
-    var destinoVisitado = "";
-    var contadorDestinosVisitados = 0;
-    document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${contadorDestinosVisitados} destinos`
-
+    var destinoVisitado = [];
+    document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${destinoVisitado.length} destinos`
     function incluirDestinoVisitado() {
-        destinoVisitado = input_destinoVisitado.value;
-        document.getElementById('div_destinosVisitados').innerHTML += `- ${destinoVisitado}<br>`
-        document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${++contadorDestinosVisitados} destinos`
-
-        if (contadorDestinosVisitados == 5) {
+        destinoVisitado.push(input_destinoVisitado.value);
+        document.getElementById('div_destinosVisitados').innerHTML = ""
+        for (var i = 0; i < destinoVisitado.length; i++) {
+            document.getElementById('div_destinosVisitados').innerHTML += `- ${destinoVisitado[i]}<br>`
+            document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${destinoVisitado.length} destinos`
+        }
+        if (destinoVisitado.length == 5) {
             alert(`Uau, parabéns! Você acaba de ganhar o selo 'Explorador!'`)
             document.getElementById('selo_destinoVisitado').src = "images/mountain.png"; 
         }
     }
 
-    var destinoDesejado = "";
-    var contadorDestinosDesejados = 0;
-    document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${contadorDestinosDesejados} destinos`
-
+    var destinoDesejado = [];
+    document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${destinoDesejado.length} destinos`
+    
     function incluirDestinoDesejado() {
-        destinoDesejado = input_destinoDesejado.value;
-        document.getElementById('div_destinosDesejados').innerHTML += `- ${destinoDesejado}<br>`
-        document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${++contadorDestinosDesejados} destinos`
-
-        if (contadorDestinosDesejados == 5) {
-            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Pesquisador de destinos!'`)
-            document.getElementById('selo_destinoDesejado').src = "images/book.png"; 
+        destinoDesejado.push(input_destinoDesejado.value);
+        document.getElementById('div_destinosDesejados').innerHTML = ""
+        for (var i = 0; i < destinoDesejado.length; i++) {
+            document.getElementById('div_destinosDesejados').innerHTML += `- ${destinoDesejado[i]}<br>`
+            document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${destinoDesejado.length} destinos`
+        }
+        if (destinoDesejado.length == 5) {
+                alert(`Uau, parabéns! Você acaba de ganhar o selo 'Pesquisador de destinos!'`)
+                document.getElementById('selo_destinoDesejado').src = "images/book.png"; 
         }
     }
 

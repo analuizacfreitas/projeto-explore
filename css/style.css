@@ -286,3 +286,37 @@ header ul a img {
 }
 
 /* Fim página de Perfil */
+
+/* Início página Sobre */
+
+.sobre_body {
+  background-image: url("../images/sobre-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.sobre_body h1, .div_sobre{
+  margin-top: 20px;
+  margin-left: 25px;
+}
+
+.div_sobre {
+  width: 80%;
+  height: 800px;
+  float: left;
+}
+
+.div_sobre p {
+  font-size: 22px;
+  width: 70%;
+  float: left;
+  margin-left: 25px;
+  text-align: justify;
+}
+
+#foto_sobre {
+  width: 15vw;
+  float: left;
+}
+
+/* Fim página Sobre */
