@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/passport.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Login</title>
+</head>
+<header>
+    <ul>
+      <a href="index.html"><img src="images/passport.png" alt=""></a>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="#">Estatísticas</a></li>
+      <li><a href="#">Explore</a></li>
+      <li><a class="active" href="index.html">Home</a></li>
+    </ul>
+</header>
+<body class="login_body">
+        <div class="div_login">
+            <form class="login" id="form_login" method="post" onsubmit="return entrar()">
+                <h1>Login</h1>
+                <label>Usuário:</label>
+                <input name="login" type="text" required>
+
+                <label>Senha:</label>
+                <input name="senha" type="password" required>
+
+                <button onsubmit="return entrar()" id="btn_entrar" value="Cadastrar">Entrar</button><br><br>
+                <a href="cadastro.html">– Cadastre-se</a>
+            </form>
+        </div>
+
+        <div class="extra">
+            <div id="div_erro" class="msg_erro">
+            </div>
+
+            <img src="aguarde-orange.gif" id="img_aguarde"  > <!--style="display: none;"-->
+            
+        </div>
+</body>
+</html>
+
+<script>
+
+    // Validação de Login
+    // function validarLogin() {
+    //     var usuario = input_usuario.value;
+    //     var senha = input_senha.value;
+        
+    //     if (usuario == 'admin' && senha == 1234) {
+    //     window.location.href ='perfil.html';
+    //     } else {
+    //         alert('Usuário ou senha inválidos. Tente novamente.')
+    //     }
+    // }
+
+    function entrar() {
+        aguardar();
+        var formulario = new URLSearchParams(new FormData(form_login));
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario
+        }).then(resposta => {
+
+            if (resposta.ok) {
+
+                resposta.json().then(json => {
+
+                    sessionStorage.login_usuario_meuapp = json.login;
+                    sessionStorage.nome_usuario_meuapp = json.nome;
+
+                    window.location.href = 'perfil.html';
+                });
+
+            } else {
+
+                console.log('Erro de login!');
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizar_aguardar(texto);
+                });
+            }
+        });
+
+        return false;
+    }
+
+    function aguardar() {
+        btn_entrar.disabled = true;
+        img_aguarde.style.visibility = 'visible';
+        div_erro.style.visibility = 'hidden';
+    }
+
+    function finalizar_aguardar(resposta) {
+        btn_entrar.disabled = false;
+        img_aguarde.style.visibility = 'hidden';
+        div_erro.style.visibility = 'visible';
+        div_erro.innerHTML = resposta;
+    }
+
+</script>
