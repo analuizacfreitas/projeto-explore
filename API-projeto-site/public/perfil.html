@@ -40,7 +40,8 @@
 <script>
 
     var destinoVisitado = [];
-    document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${destinoVisitado.length} destinos`
+    document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${destinoVisitado.length} destinos`;
+
     function incluirDestinoVisitado() {
         destinoVisitado.push(input_destinoVisitado.value);
         document.getElementById('div_destinosVisitados').innerHTML = ""
