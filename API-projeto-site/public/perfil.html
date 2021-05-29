@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/passport.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
+
+    <script type="text/javascript" src="funcoes.js"></script>
+
     <title>Meu perfil</title>
 </head>
 <header>
@@ -16,59 +19,246 @@
       <li><a class="active" href="index.html">Home</a></li>
     </ul>
 </header>
-<body class="perfil_body">
+<body onload="obterFeedUsuario(idUsuario)" class="perfil_body">
     <div class="div_perfil">
-        <h1>Meu perfil</h1><br>
+        <h1>Meu perfil - <b id="b_usuario"></b></h1><br>
         <h2>Inclua ao seu perfil destinos de viagens já realizadas e desejadas</h2><br>
         <div class="destinosVisitados">
             <h3>– Destinos visitados</h3>
-            Insira um destino já visitado: <input type="text" id="input_destinoVisitado"> 
-            <button onclick="incluirDestinoVisitado()">+</button><br><br>
+            <form id="form_destinoVisitado" method="post" onsubmit="return adicionarDestinoVisitado()">
+                Insira um destino já visitado: <input type="text" id="nomeDestinoVisitado" name="nomeDestinoVisitado">
+                <br>
+                <!-- fkDestino: <input id="fkDestinoVisitado" name="fkDestino">
+                <br> -->
+                Ano da viagem: <input id="anoViagem" name="anoViagem">
+                <!-- <button onsubmit="return publicar()"  class="btn-green">Publicar</button> -->
+                <button id="btn_publicar" onclick="incluirDestinoVisitado()">+</button><br><br>
+            </form>
             <div id="div_destinosVisitados"></div><br>
             <div id="contador_destinosVisitados"></div><img src="" id="selo_destinoVisitado"/>
         </div>
+        
         <div class="destinosDesejados">
             <h3>– Destinos desejados</h3>
-            Insira um destino desejado: <input type="text" id="input_destinoDesejado"> 
-            <button onclick="incluirDestinoDesejado()">+</button><br><br>
+            <form id="form_destinoDesejado" method="post" onsubmit="return adicionarDestinoDesejado()">
+                Insira um destino desejado: <input type="text" id="nomeDestinoDesejado" name="nomeDestinoDesejado"> 
+                <button  id="btn_publicar1" onclick="incluirDestinoDesejado()">+</button><br><br>
+            </form>
             <div id="div_destinosDesejados"></div><br>
             <div id="contador_destinosDesejados"></div><img src="" id="selo_destinoDesejado"/>
         </div>
+
+        <div class="extra">
+            <div id="div_erro" class="msg_erro">
+            </div>
+            <img src="aguarde-orange.gif" id="img_aguarde"> 
+        </div>
+    </div>
     </div>
 </body>
 
+
 <script>
 
-    var destinoVisitado = [];
-    document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${destinoVisitado.length} destinos`;
+    var idUsuario = 1;
 
+    var destinoVisitado = [];
+    var anoViagem = [];
+    contador_destinosVisitados.innerHTML = `Você já visitou: ${destinoVisitado.length} destinos`;
     function incluirDestinoVisitado() {
-        destinoVisitado.push(input_destinoVisitado.value);
-        document.getElementById('div_destinosVisitados').innerHTML = ""
-        for (var i = 0; i < destinoVisitado.length; i++) {
-            document.getElementById('div_destinosVisitados').innerHTML += `- ${destinoVisitado[i]}<br>`
-            document.getElementById('contador_destinosVisitados').innerHTML = `Você já visitou: ${destinoVisitado.length} destinos`
-        }
-        if (destinoVisitado.length == 5) {
-            alert(`Uau, parabéns! Você acaba de ganhar o selo 'Explorador!'`)
-            document.getElementById('selo_destinoVisitado').src = "images/mountain.png"; 
-        }
+        destinoVisitado.push(nomeDestinoVisitado.value);
+        anoViagem.push(anoViagem.value);
+        adicionarDestinoVisitado();
     }
 
     var destinoDesejado = [];
-    document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${destinoDesejado.length} destinos`
-    
+    contador_destinosDesejados.innerHTML = `Você deseja visitar: ${destinoDesejado.length} destinos`
     function incluirDestinoDesejado() {
-        destinoDesejado.push(input_destinoDesejado.value);
-        document.getElementById('div_destinosDesejados').innerHTML = ""
-        for (var i = 0; i < destinoDesejado.length; i++) {
-            document.getElementById('div_destinosDesejados').innerHTML += `- ${destinoDesejado[i]}<br>`
-            document.getElementById('contador_destinosDesejados').innerHTML = `Você deseja visitar: ${destinoDesejado.length} destinos`
+        destinoDesejado.push(nomeDestinoDesejado.value);
+        adicionarDestinoDesejado();
+    }
+
+    function adicionarDestinoVisitado() {
+        console.log("entrei!")
+        aguardar();
+        var formulario = new URLSearchParams(new FormData(form_destinoVisitado));
+        adicionarDestino(formulario, "usuarioDestinoVisitado");
+
+        //var idUsuario = sessionStorage.id_usuario_meuapp;
+        // var idUsuario = 1;
+        // fetch(`/usuarioDestino/adicionar/${idUsuario}`, {
+        //     method: "POST",
+        //     body: formulario
+        // }).then(resposta => {
+
+        //     if (resposta.ok) {
+        //         console.log('entrei nesse')
+        //         //obterPublicacoes();
+        //         obterPublicacoesPorUsuario(idUsuario);
+
+        //         finalizarAguardar();
+        //     } else {
+        //         console.log('Erro ao publicar!');
+        //         resposta.text().then(texto => {
+        //             console.error(texto);
+        //             finalizarAguardar(texto);
+        //         });
+        //     }
+        // });
+
+        return false;
+    }
+
+    function adicionarDestinoDesejado() {
+        console.log("entrei!")
+        aguardar();
+        var formulario = new URLSearchParams(new FormData(form_destinoDesejado));
+        adicionarDestino(formulario, "usuarioDestinoDesejado");
+
+        return false;
+    }
+
+    function adicionarDestino(formulario, rota) {
+        var idUsuario = 1;
+        fetch(`/${rota}/adicionar/${idUsuario}`, {
+            method: "POST",
+            body: formulario
+        }).then(resposta => {
+
+            if (resposta.ok) {
+                console.log('entrei nesse')
+                //obterPublicacoes();
+
+                if (rota == "usuarioDestinoDesejado"){
+                    obterDestinosDesejadosPorUsuario(idUsuario);
+                } else if (rota == "usuarioDestinoVisitado"){
+                    obterDestinosVisitadosPorUsuario(idUsuario);
+                }
+
+                finalizarAguardar();
+            } else {
+                console.log('Erro ao publicar!');
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+        });
+    }
+
+    function atualizarFeedVisitados(destinoUsuario) {
+        // Destinos Visitados
+        div_destinosVisitados.innerHTML = "";
+        for (var i = 0; i < destinoUsuario.length; i++) {
+            div_destinosVisitados.innerHTML += `- ${destinoUsuario[i].nomeDestino} 
+                                                (${destinoUsuario[i].anoViagem})<br>`
         }
-        if (destinoDesejado.length == 5) {
+        contador_destinosVisitados.innerHTML = `Você já visitou: ${destinoUsuario.length} destinos`
+        if (destinoUsuario.length >= 5) {
+            if (destinoUsuario.length == 5) {
+                alert(`Uau, parabéns! Você acaba de ganhar o selo 'Explorador!'`)
+            }
+            selo_destinoVisitado.src = "images/mountain.png"; 
+         }
+         
+    }
+
+    function atualizarFeedDesejados(destinoUsuario) {
+        //Destinos Desejados
+        div_destinosDesejados.innerHTML = "";
+        for (var i = 0; i < destinoUsuario.length; i++) {
+            div_destinosDesejados.innerHTML += `- ${destinoUsuario[i].nomeDestino}<br>`
+            contador_destinosDesejados.innerHTML = `Você deseja visitar: ${destinoUsuario.length} destinos`
+        }
+        if (destinoUsuario.length >= 5) {
+            if (destinoUsuario.length == 5) {
                 alert(`Uau, parabéns! Você acaba de ganhar o selo 'Pesquisador de destinos!'`)
-                document.getElementById('selo_destinoDesejado').src = "images/book.png"; 
+            }
+            selo_destinoDesejado.src = "images/book.png"; 
         }
     }
+
+    // function obterPublicacoes() {
+    //     aguardar();
+    //     fetch("/usuarioDestino")
+    //     .then(resposta => {
+    //         if (resposta.ok) {
+    //             resposta.json().then(function (resposta) {
+    //                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                   
+    //                 atualizarFeedVisitados(resposta);
+    //                 atualizarFeedDesejados(resposta);
+
+    //                 finalizarAguardar();
+    //             });
+    //         } else {
+    //             console.error('Nenhum dado encontrado ou erro na API');
+    //             finalizarAguardar("Nenhum resultado encontrado ou erro na API");
+    //         }
+    //     })
+    //     .catch(function (error) {
+    //         console.error(`Erro na obtenção das publicações: ${error.message}`);
+    //     });
+    // }
+
+    function obterFeedUsuario(idUsuario){
+        obterDestinosVisitadosPorUsuario(idUsuario);
+        obterDestinosDesejadosPorUsuario(idUsuario);
+    }
+
+    function obterDestinosVisitadosPorUsuario(idUsuario) {
+        fetch(`/usuarioDestinoVisitado/${idUsuario}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    atualizarFeedVisitados(resposta);
+                    // alert(JSON.stringify(resposta))
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção das publicações do usuário: ${error.message}`);
+        });
+    }
+
+    function obterDestinosDesejadosPorUsuario(idUsuario) {
+        fetch(`/usuarioDestinoDesejado/${idUsuario}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    atualizarFeedDesejados(resposta);
+                    // alert(JSON.stringify(resposta))
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção das publicações do usuário: ${error.message}`);
+        });
+    }
+
+    function aguardar() {
+        btn_publicar.disabled = true;
+        btn_publicar1.disabled = true;
+        img_aguarde.style.visibility = 'visible';
+        div_erro.style.visibility = 'hidden';
+    }
+
+    function finalizarAguardar(resposta) {
+        btn_publicar.disabled = false;
+        btn_publicar1.disabled = false;
+        img_aguarde.style.visibility = 'hidden';
+        if (resposta) {
+            div_erro.style.visibility = 'visible';
+            div_erro.innerHTML = resposta;
+        }
+    }
+
+    verificar_autenticacao();
 
 </script>
