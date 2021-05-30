@@ -7,10 +7,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usuariosRouter = require('./routes/usuarios');
-var leiturasRouter = require('./routes/leituras');
 var usuarioDestinoVisitado = require('./routes/usuarioDestinoVisitado');
 var usuarioDestinoDesejado = require('./routes/usuarioDestinoDesejado');
 var analytics = require('./routes/analytics');
+var roteiro = require('./routes/roteiro');
 
 var app = express();
 
@@ -22,9 +22,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
-app.use('/leituras', leiturasRouter);
 app.use('/usuarioDestinoVisitado', usuarioDestinoVisitado);
 app.use('/usuarioDestinoDesejado', usuarioDestinoDesejado);
 app.use('/analytics', analytics);
+app.use('/roteiro', roteiro);
 
 module.exports = app;

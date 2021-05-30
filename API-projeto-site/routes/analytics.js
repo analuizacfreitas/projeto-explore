@@ -44,10 +44,36 @@ router.get('/destinosVisitados/:idUsuario', function(req, res, next) {
 		console.error(erro);
 		res.status(500).send(erro.message);
 	});
-});
+    });
 
-/* DESTINOS DESEJADOS */
-router.get('/destinosDesejados/:idUsuario', function(req, res, next) {
+    /* TOP 3 DESTINOS VISITADOS */
+
+    router.get('/top3DestinosVisitados', function(req, res, next) {
+    console.log('Recuperando todas as publicações');
+    
+    let instrucaoSql = `SELECT nomeDestino, COUNT(nomeDestino) AS qtdUsuarios
+                        FROM destino INNER JOIN usuarioDestinoVisitado 
+                        WHERE fkDestino = idDestino
+                        GROUP BY nomeDestino 
+                        ORDER BY qtdUsuarios DESC 
+                        LIMIT 3;`;
+
+	sequelize.query(instrucaoSql, {
+		model: usuarioDestinoVisitado,
+		mapToModel: true 
+	})
+	.then(resultado => {
+		console.log(`Encontrados: ${resultado.length}`);
+		res.json(resultado);
+	}).catch(erro => {
+		console.error(erro);
+		res.status(500).send(erro.message);
+	});
+    });
+
+
+    /* DESTINOS DESEJADOS */
+    router.get('/destinosDesejados/:idUsuario', function(req, res, next) {
     console.log('Recuperando todas as publicações');
     
     let idUsuario = req.params.idUsuario;
@@ -83,6 +109,32 @@ router.get('/destinosDesejados/:idUsuario', function(req, res, next) {
 		console.error(erro);
 		res.status(500).send(erro.message);
 	});
-});
+    });
+
+    /* TOP 3 DESTINOS DESEJADOS */
+
+    router.get('/top3DestinosDesejados', function(req, res, next) {
+        console.log('Recuperando todas as publicações');
+        
+        let instrucaoSql = `SELECT nomeDestino, COUNT(nomeDestino) AS qtdUsuarios
+                            FROM destino INNER JOIN usuarioDestinoDesejado 
+                            WHERE fkDestino = idDestino
+                            GROUP BY nomeDestino 
+                            ORDER BY qtdUsuarios DESC 
+                            LIMIT 3;`;
+    
+        sequelize.query(instrucaoSql, {
+            model: usuarioDestinoDesejado,
+            mapToModel: true 
+        })
+        .then(resultado => {
+            console.log(`Encontrados: ${resultado.length}`);
+            res.json(resultado);
+        }).catch(erro => {
+            console.error(erro);
+            res.status(500).send(erro.message);
+        });
+    });
+
 
 module.exports = router;

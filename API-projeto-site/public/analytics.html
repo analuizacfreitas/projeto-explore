@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-
-    <link rel="stylesheet" href="./css/dashboard_style.css" />
+    <title>Analytics</title>
+    <link rel="stylesheet" href="./css/analytics.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="funcoes.js"></script>
   </head>
 <header>
     <ul>
-      <a href="index.html"><img src="images/passport.png" alt=""></a>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="dashboard.html">Estatísticas</a></li>
-      <li><a href="#">Explore</a></li>
-      <li><a class="active" href="index.html">Home</a></li>
+        <a href="index.html"><img src="images/passport.png" alt=""></a>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="analytics.html">Estatísticas</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a class="active" href="index.html">Home</a></li>
     </ul>
 </header>
 <body>
@@ -43,11 +43,12 @@
 
   <!-- Inserir JS do Gráfico -->
   <script>
-    //verificar_autenticacao();
+    
    
     var idUsuario = sessionStorage.id_usuario_meuapp;
 
     //GRÁFICO 1- QUANTIDADE DE DESTINOS VISITADOS
+
     function obterMetricasDestinosVisitados(idUsuario) {
         fetch(`/analytics/destinosVisitados/${idUsuario}`)
         .then(resposta => {
@@ -95,29 +96,21 @@
     
     obterMetricasDestinosVisitados(idUsuario);
 
-    //GRÁFICO 2 - QUANTIDADE DE SELOS VISITADOS
-    
-    function obterMetricasSelosVisitados(idUsuario) {
-        fetch(`/analytics/destinosVisitados/${idUsuario}`)
+    //GRÁFICO 2 - TOP 3 DESTINOS VISITADOS
+
+    function obterMetricasTop3DestinosVisitados() {
+        fetch(`/analytics/top3DestinosVisitados`)
         .then(resposta => {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            
-                    var qtdSelosUsuario = 0;
-                    if (resposta[0].qtdDestinosUsuario >= 5) {
-                        qtdSelosUsuario++;
-                    } 
-
-                    var qtdSelosMediaUsuarios = 0;
-                    if (Number(resposta[0].mediaDestinosUsuarios) >= 5) {
-                        qtdSelosMediaUsuarios++;
+                    var dadosTop3DestinosVisitados = [];
+                    var dadosQtdUsuarios = [];
+                    for (i=0; i < resposta.length; i++) {
+                        dadosTop3DestinosVisitados.push(resposta[i].nomeDestino);
+                        dadosQtdUsuarios.push(resposta[i].qtdUsuarios);
                     }
-
-                    var dadosSelosVisitados = [qtdSelosUsuario, qtdSelosMediaUsuarios];
-
-                    console.log(`Valores de entrada: ${dadosSelosVisitados}`)
-                    criarGraficoSelosVisitados(dadosSelosVisitados);
+                    criarGraficoTop3DestinosVisitados(dadosTop3DestinosVisitados, dadosQtdUsuarios);
                     // alert(JSON.stringify(resposta))
                 });
             } else {
@@ -129,18 +122,17 @@
         });
     }
     
-    function criarGraficoSelosVisitados(dadosSelosVisitados) {
-
-        const labelsBarGraph2 = ["Usuário", "Média selos do site"];
+    function criarGraficoTop3DestinosVisitados(dadosTop3DestinosVisitados, dadosQtdUsuarios) {
+        const labelsBarGraph2 = dadosTop3DestinosVisitados;
         
         const dataBarGraph2 = {
         labels: labelsBarGraph2,
         datasets: [
             {
-            label: "Quantidade de Selos Visitados",
-            backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
+            label: "Top 3 - Destinos Visitados",
+            backgroundColor: ["#19314f", "#46799d", "#87CEEB"],
             borderColor: "black",
-            data: dadosSelosVisitados,
+            data: dadosQtdUsuarios,
             },
         ],
         }
@@ -154,7 +146,7 @@
         var myChartBar = new Chart(document.getElementById("myChartBar_2"), configBarGraph2);
     }
 
-    obterMetricasSelosVisitados(idUsuario);
+    obterMetricasTop3DestinosVisitados();
 
     //GRÁFICO 3 - QUANTIDADE DE DESTINOS DESEJADOS
 
@@ -205,29 +197,21 @@
 
     obterMetricasDestinosDesejados(idUsuario);
     
-    //GRÁFICO 4 - QUANTIDADE DE SELOS DESEJADOS
+    //GRÁFICO 4 - TOP 3 DESTINOS Desejados
 
-    function obterMetricasSelosDesejados(idUsuario) {
-        fetch(`/analytics/destinosDesejados/${idUsuario}`)
+    function obterMetricasTop3DestinosDesejados() {
+        fetch(`/analytics/top3DestinosDesejados`)
         .then(resposta => {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            
-                    var qtdSelosUsuario = 0;
-                    if (resposta[0].qtdDestinosUsuario >= 5) {
-                        qtdSelosUsuario++;
-                    } 
-
-                    var qtdSelosMediaUsuarios = 0;
-                    if (Number(resposta[0].mediaDestinosUsuarios) >= 5) {
-                        qtdSelosMediaUsuarios++;
+                    var dadosTop3DestinosDesejados = [];
+                    var dadosQtdUsuarios = [];
+                    for (i=0; i < resposta.length; i++) {
+                        dadosTop3DestinosDesejados.push(resposta[i].nomeDestino);
+                        dadosQtdUsuarios.push(resposta[i].qtdUsuarios);
                     }
-
-                    var dadosSelosDesejados = [qtdSelosUsuario, qtdSelosMediaUsuarios];
-
-                    console.log(`Valores de entrada: ${dadosSelosDesejados}`)
-                    criarGraficoSelosDesejados(dadosSelosDesejados);
+                    criarGraficoTop3DestinosDesejados(dadosTop3DestinosDesejados, dadosQtdUsuarios);
                     // alert(JSON.stringify(resposta))
                 });
             } else {
@@ -239,17 +223,17 @@
         });
     }
 
-    function criarGraficoSelosDesejados(dadosSelosDesejados) {
-        const labelsBarGraph4 = ["Usuário", "Média usuários do site"];
+    function criarGraficoTop3DestinosDesejados(dadosTop3DestinosDesejados, dadosQtdUsuarios) {
+        const labelsBarGraph4 = dadosTop3DestinosDesejados;
         
         const dataBarGraph4 = {
         labels: labelsBarGraph4,
         datasets: [
             {
-            label: "Quantidade de Selos Desejados",
-            backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
+            label: "Top 3 - Destinos Desejados",
+            backgroundColor: ["#19314f", "#46799d", "#87CEEB"],
             borderColor: "black",
-            data: dadosSelosDesejados,
+            data: dadosQtdUsuarios,
             },
         ],
         }
@@ -263,7 +247,9 @@
         var myChartBar = new Chart(document.getElementById("myChartBar_4"), configBarGraph4);
     }
 
-    obterMetricasSelosDesejados(idUsuario);
+    obterMetricasTop3DestinosDesejados();
+
+    verificar_autenticacao();
 
   </script>
 </html>

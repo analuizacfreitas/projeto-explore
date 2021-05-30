@@ -14,6 +14,7 @@
 
 .container {
   width: 100%;
+  margin: 0;
 }
 
 header ul {
@@ -51,8 +52,58 @@ header ul a img {
     margin-left: 36px;;
 }
 
-.banner_img {
-  width: 100%;
+.index_body {
+  background-image: url("../images/travel.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.div_index {
+  margin:auto;
+  width: 58%;
+  height: 430px;
+}
+
+.div_index p {
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  text-transform: uppercase;
+  /* width: 100%;
+  height: 430px; */
+}
+
+.div_index #home_boas_vindas {
+  margin-top: 200px;
+}
+
+.div_index #home_texto {
+  margin-top: 30px;
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: rgba(133, 129, 129, 0.432);
+}
+
+.footer {
+  text-align: center;
+  padding: 12px;
+  padding-right: 20px;
+  background-color: rgb(57, 65, 55);
+  color: white;
+  font-size: 19px;
+  height: 30px; 
+  bottom:0;
+  position: fixed;
+  width:100%;
+}
+
+.footer a {
+  color: white;
+}
+
+
+.footer a:hover {
+  background-color: rgb(61, 82, 61);
 }
 
 /* Fim da página Home */
@@ -232,6 +283,21 @@ header ul a img {
   height: 700px;
 }
 
+#botao_logoff {
+  background-color: rgb(107, 29, 9);
+  cursor: pointer;
+  padding: 5px;
+  width: 8%;
+  float: right;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  height: 40px;
+  margin-right: 50px;
+  text-transform: uppercase;
+}
+
 .perfil_body h1{
   margin-top: 20px;
 }
@@ -320,3 +386,90 @@ header ul a img {
 }
 
 /* Fim página Sobre */
+
+/* Início página Explore */
+
+.explore_body {
+  background-image: url("../images/sobre-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.div_explore {
+  width: 100%;
+  height: 430px;
+  margin-bottom: 115px;
+}
+
+.explore_pesquisa {
+  background-color: rgba(43, 59, 43, 0.623);
+  width: 55%;
+  margin: auto;
+  height: 350px;
+  margin-top: 100px; 
+  border-radius: 8px;
+}
+
+
+.explore_pesquisa h1 {
+  text-align: center;
+  padding: 30px;
+  font-size: 40px;
+  color: white
+}
+
+.explore_pesquisa label {
+  color: whitesmoke;
+  font-size: 22px;
+  padding: 10px;
+  text-align: center;
+}
+
+.explore_pesquisa label, .explore_pesquisa input {
+  display: block;
+  width: 60%;
+  margin: auto;
+}
+
+.explore_pesquisa input {
+  margin-bottom: 30px;
+  height: 35px;
+  border: solid 1px #dbd7d7;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.explore_pesquisa button {
+  cursor: pointer;
+  background-color: rgb(43, 59, 43);
+  padding: 5px;
+  width: 20%;
+  margin-left: 40%;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  height: 40px;
+}
+
+#resultado_pesquisa {
+
+  background-color: rgba(43, 59, 43, 0.623);
+  width: 50%;
+  margin: auto;
+  height: 50px;
+  padding: 30px; 
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 22px;
+  text-align: center;
+}
+
+#resultado_pesquisa a, p {
+  color: white;
+}
+
+#resultado_pesquisa a {
+  text-transform: uppercase;
+}

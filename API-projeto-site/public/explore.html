@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="./images/passport.png" type="image/x-icon">
+        <link rel="stylesheet" href="css/style.css">
+        <title>Explore!</title>
+</head>    
+<header>
+    <ul>
+        <a href="index.html"><img src="images/passport.png" alt=""></a>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="analytics.html">Estatísticas</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a class="active" href="index.html">Home</a></li>
+    </ul>
+</header>
+<body class="explore_body">
+    <div class="div_explore">
+        <div class="explore_pesquisa">
+            <h1>Explore! Pesquisar por roteiros de viagem</h1>
+            <label> Informe uma cidade para buscar pelo seu roteiro: </label> <input id="input_cidade"> 
+            <button onclick="pesquisar()">Pesquisar</button><br><br>
+        </div>
+        <div id="resultado_pesquisa"></div>
+    </div>
+    
+</body>
+</html>
+
+<script>
+
+    resultado_pesquisa.style.display = 'none';
+
+    function pesquisar() {
+        fetch(`/roteiro`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    var cidadesRoteiros = [];
+                    var URLRoteiros = [];
+                    for (i=0; i < resposta.length; i++) {
+                        cidadesRoteiros.push(resposta[i].nomeDestino);
+                        URLRoteiros.push(resposta[i].URLRoteiro);
+                    }
+                    exibirRoteiros(cidadesRoteiros, URLRoteiros);
+                    // alert(JSON.stringify(resposta))
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados do usuário: ${error.message}`);
+        });
+    }
+
+    // cidadesRoteiros = ["Praga", "Budapeste"];
+    // URLRoteiros = ["praga.html", "budapeste.html"];
+    function exibirRoteiros(cidadesRoteiros, URLRoteiros) {
+        resultado_pesquisa.innerHTML = "";
+        var cidadePesquisada = input_cidade.value;
+        var cidadeTemRoteiro = false
+        var posicaoCidadeNaLista = -1;
+        for (i=0; i < cidadesRoteiros.length; i++) {
+            if (cidadePesquisada.toLowerCase() == cidadesRoteiros[i].toLowerCase()) {
+                cidadeTemRoteiro = true;
+                posicaoCidadeNaLista = i;
+            }
+        }
+
+        if (cidadeTemRoteiro) {
+            resultado_pesquisa.style.display = 'block';
+            resultado_pesquisa.innerHTML = `<a href="${URLRoteiros[posicaoCidadeNaLista]}">${cidadesRoteiros[posicaoCidadeNaLista]}</a>`;
+            console.log(`Cidade tem roteiro! ${URLRoteiros[posicaoCidadeNaLista]}`)
+        } else {
+            resultado_pesquisa.style.display = 'block';
+            resultado_pesquisa.innerHTML = `<p>A cidade pesquisada ainda não tem um roteiro</p>`
+        }
+    }
+
+</script>
