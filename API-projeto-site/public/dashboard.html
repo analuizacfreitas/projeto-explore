@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="./css/dashboard_style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="funcoes.js"></script>
+  </head>
+<header>
+    <ul>
+      <a href="index.html"><img src="images/passport.png" alt=""></a>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="dashboard.html">Estatísticas</a></li>
+      <li><a href="#">Explore</a></li>
+      <li><a class="active" href="index.html">Home</a></li>
+    </ul>
+</header>
+<body>
+    <div class="container">
+        <h1>Métricas do usuário</h1>
+        <!-- Gráfico 1 - Quantidade Destinos Visitados -->
+        <div class="graph">
+            <canvas id="myChartBar_1"></canvas>
+        </div>
+        <!-- Gráfico 2 - Quantidade Selos Visitados -->
+        <div class="graph">
+            <canvas id="myChartBar_2"></canvas>
+        </div>
+        <!-- Gráfico 3 - Quantidade Destinos Desejados -->
+        <div class="graph">
+            <canvas id="myChartBar_3"></canvas>
+        </div>
+        <!-- Gráfico 4 - Quantidade Selos Desejados -->
+        <div class="graph">
+            <canvas id="myChartBar_4"></canvas>
+        </div>
+    </div>
+  </body>
+
+  <!-- Inserir JS do Gráfico -->
+  <script>
+    //verificar_autenticacao();
+   
+    var idUsuario = sessionStorage.id_usuario_meuapp;
+
+    //GRÁFICO 1- QUANTIDADE DE DESTINOS VISITADOS
+    function obterMetricasDestinosVisitados(idUsuario) {
+        fetch(`/analytics/destinosVisitados/${idUsuario}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    var dadosDestinosVisitados = [];
+                    dadosDestinosVisitados.push(resposta[0].qtdDestinosUsuario);
+                    dadosDestinosVisitados.push(resposta[0].mediaDestinosUsuarios);
+                    criarGraficoDestinosVisitados(dadosDestinosVisitados);
+                    // alert(JSON.stringify(resposta))
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados do usuário: ${error.message}`);
+        });
+    }
+
+    function criarGraficoDestinosVisitados(dadosDestinosVisitados) {
+            const labelsBarGraph1 = ["Usuário", "Média usuários do site"];
+        
+            const dataBarGraph1 = {
+            labels: labelsBarGraph1,
+            datasets: [
+                {
+                label: "Quantidade de Destinos Visitados",
+                backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
+                borderColor: "black",
+                data: dadosDestinosVisitados,
+                },
+            ],
+            }
+
+            const configBarGraph1 = {
+                type: "bar",
+                data: dataBarGraph1,
+                options: { maintainAspectRatio: false },
+            }
+
+            var myChartBar = new Chart(document.getElementById("myChartBar_1"), configBarGraph1);
+        }
+    
+    obterMetricasDestinosVisitados(idUsuario);
+
+    //GRÁFICO 2 - QUANTIDADE DE SELOS VISITADOS
+    
+    function obterMetricasSelosVisitados(idUsuario) {
+        fetch(`/analytics/destinosVisitados/${idUsuario}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            
+                    var qtdSelosUsuario = 0;
+                    if (resposta[0].qtdDestinosUsuario >= 5) {
+                        qtdSelosUsuario++;
+                    } 
+
+                    var qtdSelosMediaUsuarios = 0;
+                    if (Number(resposta[0].mediaDestinosUsuarios) >= 5) {
+                        qtdSelosMediaUsuarios++;
+                    }
+
+                    var dadosSelosVisitados = [qtdSelosUsuario, qtdSelosMediaUsuarios];
+
+                    console.log(`Valores de entrada: ${dadosSelosVisitados}`)
+                    criarGraficoSelosVisitados(dadosSelosVisitados);
+                    // alert(JSON.stringify(resposta))
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados do usuário: ${error.message}`);
+        });
+    }
+    
+    function criarGraficoSelosVisitados(dadosSelosVisitados) {
+
+        const labelsBarGraph2 = ["Usuário", "Média selos do site"];
+        
+        const dataBarGraph2 = {
+        labels: labelsBarGraph2,
+        datasets: [
+            {
+            label: "Quantidade de Selos Visitados",
+            backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
+            borderColor: "black",
+            data: dadosSelosVisitados,
+            },
+        ],
+        }
+
+        const configBarGraph2 = {
+        type: "bar",
+        data: dataBarGraph2,
+        options: { maintainAspectRatio: false },
+        }
+
+        var myChartBar = new Chart(document.getElementById("myChartBar_2"), configBarGraph2);
+    }
+
+    obterMetricasSelosVisitados(idUsuario);
+
+    //GRÁFICO 3 - QUANTIDADE DE DESTINOS DESEJADOS
+
+    function obterMetricasDestinosDesejados(idUsuario) {
+        fetch(`/analytics/destinosDesejados/${idUsuario}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    var dadosDestinosDesejados = [];
+                    dadosDestinosDesejados.push(resposta[0].qtdDestinosUsuario);
+                    dadosDestinosDesejados.push(resposta[0].mediaDestinosUsuarios);
+                    criarGraficoDestinosDesejados(dadosDestinosDesejados);
+                    // alert(JSON.stringify(resposta))
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados do usuário: ${error.message}`);
+        });
+    }
+
+    function criarGraficoDestinosDesejados(dadosDestinosDesejados) {
+        const labelsBarGraph3 = ["Usuário", "Média usuários do site"];
+        
+        const dataBarGraph3 = {
+        labels: labelsBarGraph3,
+        datasets: [
+            {
+            label: "Quantidade de Destinos Desejados",
+            backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
+            borderColor: "black",
+            data: dadosDestinosDesejados,
+            },
+        ],
+        }
+
+        const configBarGraph3 = {
+        type: "bar",
+        data: dataBarGraph3,
+        options: { maintainAspectRatio: false },
+        }
+
+        var myChartBar = new Chart(document.getElementById("myChartBar_3"), configBarGraph3);
+    }
+
+    obterMetricasDestinosDesejados(idUsuario);
+    
+    //GRÁFICO 4 - QUANTIDADE DE SELOS DESEJADOS
+
+    function obterMetricasSelosDesejados(idUsuario) {
+        fetch(`/analytics/destinosDesejados/${idUsuario}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            
+                    var qtdSelosUsuario = 0;
+                    if (resposta[0].qtdDestinosUsuario >= 5) {
+                        qtdSelosUsuario++;
+                    } 
+
+                    var qtdSelosMediaUsuarios = 0;
+                    if (Number(resposta[0].mediaDestinosUsuarios) >= 5) {
+                        qtdSelosMediaUsuarios++;
+                    }
+
+                    var dadosSelosDesejados = [qtdSelosUsuario, qtdSelosMediaUsuarios];
+
+                    console.log(`Valores de entrada: ${dadosSelosDesejados}`)
+                    criarGraficoSelosDesejados(dadosSelosDesejados);
+                    // alert(JSON.stringify(resposta))
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados do usuário: ${error.message}`);
+        });
+    }
+
+    function criarGraficoSelosDesejados(dadosSelosDesejados) {
+        const labelsBarGraph4 = ["Usuário", "Média usuários do site"];
+        
+        const dataBarGraph4 = {
+        labels: labelsBarGraph4,
+        datasets: [
+            {
+            label: "Quantidade de Selos Desejados",
+            backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
+            borderColor: "black",
+            data: dadosSelosDesejados,
+            },
+        ],
+        }
+
+        const configBarGraph4 = {
+        type: "bar",
+        data: dataBarGraph4,
+        options: { maintainAspectRatio: false },
+        }
+
+        var myChartBar = new Chart(document.getElementById("myChartBar_4"), configBarGraph4);
+    }
+
+    obterMetricasSelosDesejados(idUsuario);
+
+  </script>
+</html>

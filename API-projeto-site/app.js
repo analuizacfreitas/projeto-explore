@@ -10,6 +10,7 @@ var usuariosRouter = require('./routes/usuarios');
 var leiturasRouter = require('./routes/leituras');
 var usuarioDestinoVisitado = require('./routes/usuarioDestinoVisitado');
 var usuarioDestinoDesejado = require('./routes/usuarioDestinoDesejado');
+var analytics = require('./routes/analytics');
 
 var app = express();
 
@@ -24,5 +25,6 @@ app.use('/usuarios', usuariosRouter);
 app.use('/leituras', leiturasRouter);
 app.use('/usuarioDestinoVisitado', usuarioDestinoVisitado);
 app.use('/usuarioDestinoDesejado', usuarioDestinoDesejado);
+app.use('/analytics', analytics);
 
 module.exports = app;

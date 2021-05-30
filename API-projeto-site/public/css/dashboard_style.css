@@ -1,0 +1,64 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;430&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@431;500&family=Jost:wght@400;430&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+}
+
+.container {
+  width: 100%;
+}
+
+header ul {
+  /*font-family: 'Prompt', sans-serif; 
+  font-family: 'Jost', sans-serif;*/
+  list-style-type: none;
+  overflow: hidden;
+  background-color: rgb(57, 65, 55);
+  font-size: 22px;
+  height: 60px;
+  text-transform: uppercase;
+}
+  
+header li {
+  float: right;
+}
+  
+header li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+  
+header li a:hover {
+  background-color: rgb(61, 82, 61);
+}
+
+header ul a img {
+    margin-top: 4px;
+    margin-top: 7px;
+    width: 42px;
+    float: left;
+    margin-left: 36px;;
+}
+
+h1 {
+  margin-left: 25px;
+  margin-top: 20px;
+}
+
+.graph {
+  background-color: #eaeaea;
+  display: inline-block;
+  width: 45%;
+  height: 240px;
+  margin: 22px;
+  padding: 10px;
+}
