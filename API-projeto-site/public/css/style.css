@@ -45,11 +45,11 @@ header li a:hover {
 }
 
 header ul a img {
-    margin-top: 4px;
-    margin-top: 7px;
-    width: 42px;
-    float: left;
-    margin-left: 36px;;
+  margin-top: 4px;
+  margin-top: 7px;
+  width: 42px;
+  float: left;
+  margin-left: 36px;
 }
 
 .index_body {
@@ -473,3 +473,62 @@ header ul a img {
 #resultado_pesquisa a {
   text-transform: uppercase;
 }
+
+/* Fim página Explore */
+
+/* Início página Praga (Roteiro) */
+
+.praga_body {
+  background-image: url("../images/praga.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* 
+.div_conteudo {
+  width: 100%;
+  height: 430px;
+  margin-bottom: 115px;
+} */
+
+.div_conteudo {
+  width: 89%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: rgba(36, 43, 59, 0.589);
+  padding: 20px;
+}
+
+.div_conteudo h1 {
+  color: white;
+  margin-top: 15px;
+}
+
+.div_conteudo p {
+  color: white;
+  font-size: 22px;
+}
+
+.imgs_praga {
+  width: 19.5%;
+  border-radius: 5px;
+}
+
+.div_conteudo iframe {
+  border-radius: 5px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+div .imgs_refs_praga {
+  width: 17.5%;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.div_conteudo div {
+  margin-left: 30%;
+}
+
