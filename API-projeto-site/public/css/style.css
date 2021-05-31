@@ -532,3 +532,62 @@ div .imgs_refs_praga {
   margin-left: 30%;
 }
 
+/* Fim página Praga (Roteiro) */
+
+/* Início página Budapeste (Roteiro) */
+
+.budapeste_body {
+  background-image: url("../images/budapeste.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* 
+.div_conteudo {
+  width: 100%;
+  height: 430px;
+  margin-bottom: 115px;
+} */
+
+.div_conteudo {
+  width: 89%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: rgba(70, 76, 88, 0.356);
+  padding: 20px;
+}
+
+.div_conteudo h1 {
+  color: white;
+  margin-top: 15px;
+}
+
+.div_conteudo p {
+  color: white;
+  font-size: 22px;
+}
+
+.imgs_budapeste {
+  width: 19.5%;
+  border-radius: 5px;
+}
+
+.div_conteudo iframe {
+  border-radius: 5px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+div .imgs_refs_budapeste {
+  width: 17.5%;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.div_conteudo div {
+  margin-left: 30%;
+}
+
+/* Fim página Budapeste (Roteiro) */
