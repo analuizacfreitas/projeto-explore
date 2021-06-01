@@ -134,12 +134,15 @@
             if (destinoUsuario.length == 5) {
                 alert(`Uau, parabéns! Você acaba de ganhar o selo 'Explorador!'`)
             }
-            selo_destinoVisitado.innerHTML += `<img width="45" src="images/mountain.png"/>`; 
+            selo_destinoVisitado.innerHTML = `<img width="45" src="images/mountain.png"/>`;
+        }
+        
+        if (destinoUsuario.length >= 10) {
             if (destinoUsuario.length == 10) {
                 alert(`Uau, parabéns! Você acaba de ganhar o selo 'Mochileiro das galáxias!'`)
             }
             selo_destinoVisitado.innerHTML += `<img width="50" src="images/hiking.png"/>`; 
-         }
+        }
     }
 
     function atualizarFeedDesejados(destinoUsuario) {
@@ -154,10 +157,12 @@
                 alert(`Uau, parabéns! Você acaba de ganhar o selo 'Pesquisador de destinos!'`)
             }
             selo_destinoDesejado.innerHTML = `<img width="45" src="images/book.png"/>`; 
+        }
+        if (destinoUsuario.length >= 10) {
             if (destinoUsuario.length == 10) {
                 alert(`Uau, parabéns! Você acaba de ganhar o selo 'Planejador audacioso!'`)
             }
-            selo_destinoDesejado.innerHTML += `<img width="50" src="images/map.png"/>`; 
+            selo_destinoDesejado.innerHTML += `<img width="50" src="images/map.png"/>`;
         }
     }
 
