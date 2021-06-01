@@ -19,27 +19,28 @@
 </header>
 <body class="cadastro_body">
     <div class="div_cadastro">
-        <form class="cadastro" id="form_cadastro" method="post" onsubmit="return cadastrar()">
+        <form class="cadastro" id="form_cadastro" method="post" onsubmit="return validarCadastro()"> 
+            
             <h1>Cadastro</h1>
             <label>Nome:</label>
-            <input name="nome" type="text" required>
-            
+            <input id="input_nome" name="nome" type="text" required>
+
             <label>Data de nascimento:</label>
-            <input name="dataNasc" type="date" required>
+            <input id="input_data_nasc" name="dataNasc" type="date" required>
             
             <label>E-mail:</label>
-            <input name="email" type="email" required>
+            <input id="input_email" name="email" type="email" required>
             
             <label>Usuário:</label>
-            <input name="login" type="text" required>
+            <input id="input_login" name="login" type="text" maxlength=45 required>
             
             <label>Senha:</label>
-            <input name="senha" type="password" required>
+            <input id="input_senha" name="senha" type="password" maxlength=25 required>
 
-            <button onsubmit="return cadastrar()" id="btn_entrar" value="Cadastrar">Cadastrar</button><br>
-            <a href="login.html">– Já tenho login</a>
+            <button  id="btn_entrar" value="Cadastrar">Cadastrar</button><br>
+            <a href="login.html">– Já tenho login</a> 
+            <!-- onsubmit="return cadastrar()" onclick="validarCadastro()"-->
         </form>
-        <img src="aguarde-orange.gif" id="img_aguarde" style="display: none; width:100px">
     
         <div id="div_erro" style="background-color: sandybrown; color: maroon; display: none;">
             Erro no cadastro
@@ -50,6 +51,46 @@
 
 <script>
 
+    var listaErrosCadastro = [];
+    function validarCadastro() {
+
+        var inputNome = input_nome.value;
+        if (inputNome.length < 3) {
+            listaErrosCadastro.push('O nome informado precisa ter pelo menos 3 letras')
+        }
+
+        var inputDataNasc = input_data_nasc.value;
+        if (inputDataNasc < '1900-01-01') {
+            listaErrosCadastro.push('Data de nascimento informada inválida');
+        }
+
+        var inputEmail = input_email.value;
+        if ((inputEmail.endsWith('.com') == false) && (inputEmail.endsWith('.br') == false)) {
+            listaErrosCadastro.push('O email informado não é válido');
+        }
+
+        var inputLogin = input_login.value;
+        if (inputLogin.length < 4) {
+            listaErrosCadastro.push('O login informado precisa ter pelo menos 4 letras')
+        }
+
+        var inputSenha = input_senha.value;
+        if (inputSenha.length < 8) {
+            listaErrosCadastro.push('Para sua segurança, a senha cadastrada precisa ter ao menos 8 caracteres')
+        }
+
+        if (listaErrosCadastro.length == 0) {
+            return cadastrar();
+        } else {
+            for (i=0; i < listaErrosCadastro.length; i++) {
+                alert(`${listaErrosCadastro[i]}`)
+            }
+            listaErrosCadastro = [];
+            return false;
+        }
+    }
+
+
     function cadastrar() {
             aguardar();
             var formulario = new URLSearchParams(new FormData(form_cadastro));
@@ -57,13 +98,9 @@
                 method: "POST",
                 body: formulario
             }).then(function (response) {
-                
                 if (response.ok) {
-
                     window.location.href='login.html';
-
                 } else {
-
                     console.log('Erro de cadastro!');
                     response.text().then(function (resposta) {
                         div_erro.innerHTML = resposta;
@@ -72,12 +109,12 @@
                 }
             });
 
-            return false;
-        }
+        return false;
+    }
 
     function aguardar() {
-    btn_entrar.disabled = true;
-    div_erro.style.display='none';
+        btn_entrar.disabled = true;
+        div_erro.style.display='none';
     }
 
     function finalizar_aguardar() {

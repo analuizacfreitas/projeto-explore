@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./images/passport.png" type="image/x-icon">
     <title>Analytics</title>
     <link rel="stylesheet" href="./css/analytics.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,10 +20,14 @@
         <li><a class="active" href="index.html">Home</a></li>
     </ul>
 </header>
-<body>
+<body class="body_analytics">
+    <button id="botao_logout_analytics" onclick="logoff()">Logout</button>
     <div class="container">
-        <h1>Métricas do usuário</h1>
+        <h1>Analytics - Minhas métricas</h1>
+        <br>
+        <div class="div_graficos">
         <!-- Gráfico 1 - Quantidade Destinos Visitados -->
+        <h2>1). Gráficos relativos aos destinos visitados</h2>
         <div class="graph">
             <canvas id="myChartBar_1"></canvas>
         </div>
@@ -30,6 +35,7 @@
         <div class="graph">
             <canvas id="myChartBar_2"></canvas>
         </div>
+        <h2>2). Gráficos relativos aos destinos desejados</h2>
         <!-- Gráfico 3 - Quantidade Destinos Desejados -->
         <div class="graph">
             <canvas id="myChartBar_3"></canvas>
@@ -38,17 +44,16 @@
         <div class="graph">
             <canvas id="myChartBar_4"></canvas>
         </div>
+        </div>
     </div>
   </body>
 
-  <!-- Inserir JS do Gráfico -->
+
   <script>
-    
-   
+
     var idUsuario = sessionStorage.id_usuario_meuapp;
 
     //GRÁFICO 1- QUANTIDADE DE DESTINOS VISITADOS
-
     function obterMetricasDestinosVisitados(idUsuario) {
         fetch(`/analytics/destinosVisitados/${idUsuario}`)
         .then(resposta => {
@@ -71,13 +76,13 @@
     }
 
     function criarGraficoDestinosVisitados(dadosDestinosVisitados) {
-            const labelsBarGraph1 = ["Usuário", "Média usuários do site"];
+            const labelsBarGraph1 = ["Você", "Média usuários do site"];
         
             const dataBarGraph1 = {
             labels: labelsBarGraph1,
             datasets: [
                 {
-                label: "Quantidade de Destinos Visitados",
+                label: "1.1). QUANTIDADE DE DESTINOS VISITADOS",
                 backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
                 borderColor: "black",
                 data: dadosDestinosVisitados,
@@ -97,7 +102,6 @@
     obterMetricasDestinosVisitados(idUsuario);
 
     //GRÁFICO 2 - TOP 3 DESTINOS VISITADOS
-
     function obterMetricasTop3DestinosVisitados() {
         fetch(`/analytics/top3DestinosVisitados`)
         .then(resposta => {
@@ -129,7 +133,7 @@
         labels: labelsBarGraph2,
         datasets: [
             {
-            label: "Top 3 - Destinos Visitados",
+            label: "1.2). TOP 3 - DESTINOS VISITADOS",
             backgroundColor: ["#19314f", "#46799d", "#87CEEB"],
             borderColor: "black",
             data: dadosQtdUsuarios,
@@ -149,7 +153,6 @@
     obterMetricasTop3DestinosVisitados();
 
     //GRÁFICO 3 - QUANTIDADE DE DESTINOS DESEJADOS
-
     function obterMetricasDestinosDesejados(idUsuario) {
         fetch(`/analytics/destinosDesejados/${idUsuario}`)
         .then(resposta => {
@@ -172,13 +175,13 @@
     }
 
     function criarGraficoDestinosDesejados(dadosDestinosDesejados) {
-        const labelsBarGraph3 = ["Usuário", "Média usuários do site"];
+        const labelsBarGraph3 = ["Você", "Média usuários do site"];
         
         const dataBarGraph3 = {
         labels: labelsBarGraph3,
         datasets: [
             {
-            label: "Quantidade de Destinos Desejados",
+            label: "2.1). QUANTIDADE DE DESTINOS DESEJADOS",
             backgroundColor: ["#19314f", "#46799d", "#9c27b0"],
             borderColor: "black",
             data: dadosDestinosDesejados,
@@ -198,7 +201,6 @@
     obterMetricasDestinosDesejados(idUsuario);
     
     //GRÁFICO 4 - TOP 3 DESTINOS Desejados
-
     function obterMetricasTop3DestinosDesejados() {
         fetch(`/analytics/top3DestinosDesejados`)
         .then(resposta => {
@@ -230,7 +232,7 @@
         labels: labelsBarGraph4,
         datasets: [
             {
-            label: "Top 3 - Destinos Desejados",
+            label: "2.2). TOP 3 - DESTINOS DESEJADOS",
             backgroundColor: ["#19314f", "#46799d", "#87CEEB"],
             borderColor: "black",
             data: dadosQtdUsuarios,

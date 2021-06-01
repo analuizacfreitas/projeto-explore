@@ -24,11 +24,13 @@
             <br>
             <p>Praga, capital da República Tcheca, é conhecida como "cidade das cem cúpulas" e possui um dos mais belos e antigos centros urbanos da Europa. Também é famosa pelo extenso patrimônio arquitetônico e cultura boêmia. Eu sou particularmente apaixonada pela cidade. Minha primeira vez em Praga foi em 2016 e fiquei tão encantada que voltei em 2019 - e definitivamente pretendo voltar mais vezes. Destaques: culinária, cultura cervejeira, arquitetura.</p>
             <br>
-            <img class="imgs_praga" src="./images/praga_airbnb.jpg" alt="">
-            <img class="imgs_praga" src="./images/praga_comida.jpg" alt="">
-            <img class="imgs_praga" src="./images/praga_arquitetura_1.jpg" alt="">
-            <img class="imgs_praga" src="./images/praga_arquitetura_2.jpg" alt="">
-            <img class="imgs_praga" src="./images/praga_arquitetura.jpg" alt="">
+            <div class="div_imgs_praga">
+                <img class="imgs_praga" src="./images/praga_airbnb.jpg" alt="">
+                <img class="imgs_praga" src="./images/praga_comida.jpg" alt="">
+                <img class="imgs_praga" src="./images/praga_arquitetura_1.jpg" alt="">
+                <img class="imgs_praga" src="./images/praga_arquitetura_2.jpg" alt="">
+                <img class="imgs_praga" src="./images/praga_arquitetura.jpg" alt="">
+            </div>
             <br><br>
             <p>O vídeo a seguir, compartilhado do canal do Youtube da Michele Alves e replicado aqui, traz ótimas dicas de atrações e possibilidades pra quem tem interesse em conhecer mais sobre esse destino.</p>
             <br>
@@ -41,12 +43,65 @@
             <p>3). Os Miseráveis (1998): No filme do dinamarquês Billie August, na adaptação do clássico de Victor Hugo, Paris é, na verdade, Praga.</p>
             <br>
             <br>
-            <div>
+            <div class="div_refs_praga">
                 <img class="imgs_refs_praga" src="./images/milan_kundera.jpg" alt="">
                 <img class="imgs_refs_praga" src="./images/missao_impossivel.jpeg" alt="">
                 <img class="imgs_refs_praga" src="./images/miseraveis.jpeg" alt="">
+            </div>
+            <br>
+            <p>Por fim, se você se interessou e quer saber quanto precisa juntar para conhecer Praga, calcule abaixo o valor de uma conversão de Reais para a moeda local - a Coroa Tcheca: </p>
+            <br>
+            <div class="div_conversor">
+                <h1 >Conversor de moedas</h1>
+                <img class="logo_conversor" src="./images/money.png" alt="">
+                <p>Converta de Real para Coroa Tcheca, Euro, Dólar ou Libra</p>
+                <p >Digite o valor (em Real) que deseja converter:</p>
+                <br> 
+                <input id="input_user" placeholder="R$">
+                <select id="opcao_moeda">
+                    <option value="">Converter para:</option>
+                    <option value="coroa_tcheca">Coroa Tcheca</option>
+                    <option value="euro">Euro</option>
+                    <option value="dolar">Dólar</option>
+                    <option value="libra">Libra</option>
+                </select><br><br>
+                <button onclick="converter()">Converter</button>
+                <div id="div_resultado_conversao"></div>
+            </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+
+<script>
+
+function converter() {
+    
+    var valorEmReais = Number(input_user.value);
+    var moedaEscolhida = opcao_moeda.value;
+
+    div_resultado_conversao.innerHTML = `<br><p>Valor digitado (BRL): R$${valorEmReais}</p>`
+
+    if (moedaEscolhida == 'coroa_tcheca') {
+        var cotacaoCoroaTcheca = 3.99;
+        div_resultado_conversao.innerHTML += `<p>Valor em Coroa Tcheca (CZK): 
+                                    Kč ${(valorEmReais * cotacaoCoroaTcheca).toFixed(2)}</p>`
+    } else if (moedaEscolhida == 'euro') {
+        var cotacaoEuro = 0.16;
+        div_resultado_conversao.innerHTML += `<p>Valor em Euro (EUR): 
+                                    €${(valorEmReais * cotacaoEuro).toFixed(2)}</p>`
+    } else if (moedaEscolhida == 'dolar') {
+        var cotacaoDolar = 0.19;
+        div_resultado_conversao.innerHTML += `<p>Valor em Dólar (USD): 
+                                    $${(valorEmReais * cotacaoDolar).toFixed(2)}</p>`
+    } else if (moedaEscolhida == 'libra') {
+        var cotacaoLibra = 0.13;
+        div_resultado_conversao.innerHTML += `<p>Valor em Libra (GBP): 
+                                    £${(valorEmReais * cotacaoLibra).toFixed(2)}</p>`
+    } else {
+        div_resultado_conversao.innerHTML += `<p>Opção inválida. Escolha uma moeda para realizar a conversão.</p>`
+    }
+}
+
+</script>

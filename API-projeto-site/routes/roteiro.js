@@ -5,7 +5,6 @@ var sequelize = require('../models').sequelize;
 var Roteiro = require('../models').Roteiro;
 
 /* ROTEIRO */
-
 router.get('/', function(req, res, next) {
     console.log('Recuperando todas as publicações');
 
@@ -26,6 +25,5 @@ router.get('/', function(req, res, next) {
         res.status(500).send(erro.message);
     });
 });
-
 
 module.exports = router;

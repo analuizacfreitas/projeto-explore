@@ -22,25 +22,21 @@
 </header>
 <body onload="obterFeedUsuario(idUsuario)" class="perfil_body">
     <div class="div_perfil">
+        <button id="botao_logout_perfil" onclick="logoff()">Logout</button>
         <h1>Meu perfil - <b id="b_usuario"></b></h1>
-        <button id="botao_logoff" onclick="logoff()">Logout</button>
         <br>
         <h2>Inclua ao seu perfil destinos de viagens já realizadas e desejadas</h2><br>
         <div class="destinosVisitados">
             <h3>– Destinos visitados</h3>
             <form id="form_destinoVisitado" method="post" onsubmit="return adicionarDestinoVisitado()">
-                Insira um destino já visitado: <input type="text" id="nomeDestinoVisitado" name="nomeDestinoVisitado">
+                Insira um destino já visitado: <input type="text" id="nomeDestinoVisitado" name="nomeDestinoVisitado" required>
                 <br>
-                <!-- fkDestino: <input id="fkDestinoVisitado" name="fkDestino">
-                <br> -->
-                Ano da viagem: <input id="anoViagem" name="anoViagem">
-                <!-- <button onsubmit="return publicar()"  class="btn-green">Publicar</button> -->
+                Ano da viagem: <input id="anoViagem" name="anoViagem" minlength="3" maxlength="4" required>
                 <button id="btn_publicar" onclick="incluirDestinoVisitado()">+</button><br><br>
             </form>
             <div id="div_destinosVisitados"></div><br>
-            <div id="contador_destinosVisitados"></div><img src="" id="selo_destinoVisitado"/>
+            <div id="contador_destinosVisitados"></div><div id="selo_destinoVisitado"></div>
         </div>
-        
         <div class="destinosDesejados">
             <h3>– Destinos desejados</h3>
             <form id="form_destinoDesejado" method="post" onsubmit="return adicionarDestinoDesejado()">
@@ -48,9 +44,8 @@
                 <button  id="btn_publicar1" onclick="incluirDestinoDesejado()">+</button><br><br>
             </form>
             <div id="div_destinosDesejados"></div><br>
-            <div id="contador_destinosDesejados"></div><img src="" id="selo_destinoDesejado"/>
+            <div id="contador_destinosDesejados"></div><div id="selo_destinoDesejado"></div>
         </div>
-
         <div class="extra">
             <div id="div_erro" class="msg_erro">
             </div>
@@ -61,8 +56,8 @@
 
 
 <script>
+
     var idUsuario = sessionStorage.id_usuario_meuapp;
-    // var idUsuario = 1;
 
     var destinoVisitado = [];
     var anoViagem = [];
@@ -85,29 +80,6 @@
         aguardar();
         var formulario = new URLSearchParams(new FormData(form_destinoVisitado));
         adicionarDestino(formulario, "usuarioDestinoVisitado");
-
-        // var idUsuario = sessionStorage.id_usuario_meuapp;
-        // var idUsuario = 1;
-        // fetch(`/usuarioDestino/adicionar/${idUsuario}`, {
-        //     method: "POST",
-        //     body: formulario
-        // }).then(resposta => {
-
-        //     if (resposta.ok) {
-        //         console.log('entrei nesse')
-        //         //obterPublicacoes();
-        //         obterPublicacoesPorUsuario(idUsuario);
-
-        //         finalizarAguardar();
-        //     } else {
-        //         console.log('Erro ao publicar!');
-        //         resposta.text().then(texto => {
-        //             console.error(texto);
-        //             finalizarAguardar(texto);
-        //         });
-        //     }
-        // });
-
         return false;
     }
 
@@ -116,12 +88,10 @@
         aguardar();
         var formulario = new URLSearchParams(new FormData(form_destinoDesejado));
         adicionarDestino(formulario, "usuarioDestinoDesejado");
-
         return false;
     }
 
     function adicionarDestino(formulario, rota) {
-        // var idUsuario = 1;
         var idUsuario = sessionStorage.id_usuario_meuapp;
         console.log(`O idUsuario é: ${idUsuario}`);
         fetch(`/${rota}/adicionar/${idUsuario}`, {
@@ -144,6 +114,7 @@
                 console.log('Erro ao publicar!');
                 resposta.text().then(texto => {
                     console.error(texto);
+                    alert('Destino não cadastrado. Digite um destino válido.')
                     finalizarAguardar(texto);
                 });
             }
@@ -151,8 +122,9 @@
     }
 
     function atualizarFeedVisitados(destinoUsuario) {
-        // Destinos Visitados
+        // DESTINOS VISITADOS
         div_destinosVisitados.innerHTML = "";
+        selo_destinoVisitado.innerHTML = "";
         for (var i = 0; i < destinoUsuario.length; i++) {
             div_destinosVisitados.innerHTML += `- ${destinoUsuario[i].nomeDestino} 
                                                 (${destinoUsuario[i].anoViagem})<br>`
@@ -162,13 +134,16 @@
             if (destinoUsuario.length == 5) {
                 alert(`Uau, parabéns! Você acaba de ganhar o selo 'Explorador!'`)
             }
-            selo_destinoVisitado.src = "images/mountain.png"; 
+            selo_destinoVisitado.innerHTML += `<img width="45" src="images/mountain.png"/>`; 
+            if (destinoUsuario.length == 10) {
+                alert(`Uau, parabéns! Você acaba de ganhar o selo 'Mochileiro das galáxias!'`)
+            }
+            selo_destinoVisitado.innerHTML += `<img width="50" src="images/hiking.png"/>`; 
          }
-         
     }
 
     function atualizarFeedDesejados(destinoUsuario) {
-        //Destinos Desejados
+        //DESTINOS DESEJADOS
         div_destinosDesejados.innerHTML = "";
         for (var i = 0; i < destinoUsuario.length; i++) {
             div_destinosDesejados.innerHTML += `- ${destinoUsuario[i].nomeDestino}<br>`
@@ -178,32 +153,13 @@
             if (destinoUsuario.length == 5) {
                 alert(`Uau, parabéns! Você acaba de ganhar o selo 'Pesquisador de destinos!'`)
             }
-            selo_destinoDesejado.src = "images/book.png"; 
+            selo_destinoDesejado.innerHTML = `<img width="45" src="images/book.png"/>`; 
+            if (destinoUsuario.length == 10) {
+                alert(`Uau, parabéns! Você acaba de ganhar o selo 'Planejador audacioso!'`)
+            }
+            selo_destinoDesejado.innerHTML += `<img width="50" src="images/map.png"/>`; 
         }
     }
-
-    // function obterPublicacoes() {
-    //     aguardar();
-    //     fetch("/usuarioDestino")
-    //     .then(resposta => {
-    //         if (resposta.ok) {
-    //             resposta.json().then(function (resposta) {
-    //                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                   
-    //                 atualizarFeedVisitados(resposta);
-    //                 atualizarFeedDesejados(resposta);
-
-    //                 finalizarAguardar();
-    //             });
-    //         } else {
-    //             console.error('Nenhum dado encontrado ou erro na API');
-    //             finalizarAguardar("Nenhum resultado encontrado ou erro na API");
-    //         }
-    //     })
-    //     .catch(function (error) {
-    //         console.error(`Erro na obtenção das publicações: ${error.message}`);
-    //     });
-    // }
 
     function obterFeedUsuario(idUsuario){
         obterDestinosVisitadosPorUsuario(idUsuario);
@@ -257,7 +213,7 @@
         btn_publicar1.disabled = false;
         if (resposta) {
             div_erro.style.visibility = 'visible';
-            div_erro.innerHTML = resposta;
+            // div_erro.innerHTML = resposta;
         }
     }
 

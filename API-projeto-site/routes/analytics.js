@@ -46,95 +46,91 @@ router.get('/destinosVisitados/:idUsuario', function(req, res, next) {
 	});
     });
 
-    /* TOP 3 DESTINOS VISITADOS */
+/* TOP 3 DESTINOS VISITADOS */
+router.get('/top3DestinosVisitados', function(req, res, next) {
+console.log('Recuperando todas as publicações');
 
-    router.get('/top3DestinosVisitados', function(req, res, next) {
+let instrucaoSql = `SELECT nomeDestino, COUNT(nomeDestino) AS qtdUsuarios
+                    FROM destino INNER JOIN usuarioDestinoVisitado 
+                    WHERE fkDestino = idDestino
+                    GROUP BY nomeDestino 
+                    ORDER BY qtdUsuarios DESC 
+                    LIMIT 3;`;
+
+sequelize.query(instrucaoSql, {
+    model: usuarioDestinoVisitado,
+    mapToModel: true 
+})
+.then(resultado => {
+    console.log(`Encontrados: ${resultado.length}`);
+    res.json(resultado);
+}).catch(erro => {
+    console.error(erro);
+    res.status(500).send(erro.message);
+});
+});
+
+/* DESTINOS DESEJADOS */
+router.get('/destinosDesejados/:idUsuario', function(req, res, next) {
+console.log('Recuperando todas as publicações');
+
+let idUsuario = req.params.idUsuario;
+
+let instrucaoSql = `SELECT
+                        qtdDestinosUsuario, mediaDestinosUsuarios
+                    FROM
+                    (
+                        SELECT
+                            COUNT(fkDestino) as qtdDestinosUsuario
+                        FROM usuarioDestinoDesejado
+                        WHERE fkUsuario = ${idUsuario}
+                    ) t0
+                    INNER JOIN
+                    (
+                        SELECT ROUND(AVG(qtdDestinos), 2) as mediaDestinosUsuarios
+                        FROM 
+                        (
+                            SELECT COUNT(fkDestino) as qtdDestinos
+                            FROM usuarioDestinoDesejado
+                            GROUP BY fkUsuario
+                        ) t1
+                    ) t2;`;
+
+sequelize.query(instrucaoSql, {
+    model: usuarioDestinoDesejado,
+    mapToModel: true 
+})
+.then(resultado => {
+    console.log(`Encontrados: ${resultado.length}`);
+    res.json(resultado);
+}).catch(erro => {
+    console.error(erro);
+    res.status(500).send(erro.message);
+});
+});
+
+/* TOP 3 DESTINOS DESEJADOS */
+router.get('/top3DestinosDesejados', function(req, res, next) {
     console.log('Recuperando todas as publicações');
     
     let instrucaoSql = `SELECT nomeDestino, COUNT(nomeDestino) AS qtdUsuarios
-                        FROM destino INNER JOIN usuarioDestinoVisitado 
+                        FROM destino INNER JOIN usuarioDestinoDesejado 
                         WHERE fkDestino = idDestino
                         GROUP BY nomeDestino 
                         ORDER BY qtdUsuarios DESC 
                         LIMIT 3;`;
 
-	sequelize.query(instrucaoSql, {
-		model: usuarioDestinoVisitado,
-		mapToModel: true 
-	})
-	.then(resultado => {
-		console.log(`Encontrados: ${resultado.length}`);
-		res.json(resultado);
-	}).catch(erro => {
-		console.error(erro);
-		res.status(500).send(erro.message);
-	});
+    sequelize.query(instrucaoSql, {
+        model: usuarioDestinoDesejado,
+        mapToModel: true 
+    })
+    .then(resultado => {
+        console.log(`Encontrados: ${resultado.length}`);
+        res.json(resultado);
+    }).catch(erro => {
+        console.error(erro);
+        res.status(500).send(erro.message);
     });
-
-
-    /* DESTINOS DESEJADOS */
-    router.get('/destinosDesejados/:idUsuario', function(req, res, next) {
-    console.log('Recuperando todas as publicações');
-    
-    let idUsuario = req.params.idUsuario;
-    
-    let instrucaoSql = `SELECT
-                            qtdDestinosUsuario, mediaDestinosUsuarios
-                        FROM
-                        (
-                            SELECT
-                                COUNT(fkDestino) as qtdDestinosUsuario
-                            FROM usuarioDestinoDesejado
-                            WHERE fkUsuario = ${idUsuario}
-                        ) t0
-                        INNER JOIN
-                        (
-                            SELECT ROUND(AVG(qtdDestinos), 2) as mediaDestinosUsuarios
-                            FROM 
-                            (
-                                SELECT COUNT(fkDestino) as qtdDestinos
-                                FROM usuarioDestinoDesejado
-                                GROUP BY fkUsuario
-                            ) t1
-                        ) t2;`;
-
-	sequelize.query(instrucaoSql, {
-		model: usuarioDestinoDesejado,
-		mapToModel: true 
-	})
-	.then(resultado => {
-		console.log(`Encontrados: ${resultado.length}`);
-		res.json(resultado);
-	}).catch(erro => {
-		console.error(erro);
-		res.status(500).send(erro.message);
-	});
-    });
-
-    /* TOP 3 DESTINOS DESEJADOS */
-
-    router.get('/top3DestinosDesejados', function(req, res, next) {
-        console.log('Recuperando todas as publicações');
-        
-        let instrucaoSql = `SELECT nomeDestino, COUNT(nomeDestino) AS qtdUsuarios
-                            FROM destino INNER JOIN usuarioDestinoDesejado 
-                            WHERE fkDestino = idDestino
-                            GROUP BY nomeDestino 
-                            ORDER BY qtdUsuarios DESC 
-                            LIMIT 3;`;
-    
-        sequelize.query(instrucaoSql, {
-            model: usuarioDestinoDesejado,
-            mapToModel: true 
-        })
-        .then(resultado => {
-            console.log(`Encontrados: ${resultado.length}`);
-            res.json(resultado);
-        }).catch(erro => {
-            console.error(erro);
-            res.status(500).send(erro.message);
-        });
-    });
-
+});
 
 module.exports = router;

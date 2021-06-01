@@ -73,8 +73,8 @@
 
             } else {
 
-                console.log('Erro de login!');
-
+                console.log('Login e/ou senha inválido(s)!');
+                alert('Usuário ou senha inválido')
                 resposta.text().then(texto => {
                     console.error(texto);
                     finalizar_aguardar(texto);
@@ -93,7 +93,7 @@
     function finalizar_aguardar(resposta) {
         btn_entrar.disabled = false;
         div_erro.style.visibility = 'visible';
-        div_erro.innerHTML = resposta;
+        // div_erro.innerHTML = resposta;
     }
 
 </script>

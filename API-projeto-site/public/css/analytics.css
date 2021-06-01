@@ -14,6 +14,12 @@
   width: 100%;
 }
 
+.body_analytics {
+  background-image: url("../images/perfil-bg13.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 header ul {
   /*font-family: 'Prompt', sans-serif; 
   font-family: 'Jost', sans-serif;*/
@@ -50,15 +56,40 @@ header ul a img {
 }
 
 h1 {
-  margin-left: 25px;
+  margin-left: 50px;
   margin-top: 20px;
 }
 
+#botao_logout_analytics {
+  margin-top: 20px;
+  background-color: rgb(107, 29, 9);
+  cursor: pointer;
+  padding: 5px;
+  width: 8%;
+  float: right;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  height: 40px;
+  margin-right: 50px;
+  text-transform: uppercase;
+}
+
 .graph {
-  background-color: #eaeaea;
+  background-color: #eaeaeaa9;
   display: inline-block;
-  width: 45%;
+  width: 40%;
   height: 240px;
-  margin: 22px;
+  margin: 32px;
   padding: 10px;
+  border-radius: 3px;
+}
+
+.div_graficos {
+  background-color: #7b808aa9;
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5px;
 }

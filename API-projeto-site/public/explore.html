@@ -58,12 +58,10 @@
         });
     }
 
-    // cidadesRoteiros = ["Praga", "Budapeste"];
-    // URLRoteiros = ["praga.html", "budapeste.html"];
     function exibirRoteiros(cidadesRoteiros, URLRoteiros) {
         resultado_pesquisa.innerHTML = "";
         var cidadePesquisada = input_cidade.value;
-        var cidadeTemRoteiro = false
+        var cidadeTemRoteiro = false;
         var posicaoCidadeNaLista = -1;
         for (i=0; i < cidadesRoteiros.length; i++) {
             if (cidadePesquisada.toLowerCase() == cidadesRoteiros[i].toLowerCase()) {
@@ -75,7 +73,7 @@
         if (cidadeTemRoteiro) {
             resultado_pesquisa.style.display = 'block';
             resultado_pesquisa.innerHTML = `<a href="${URLRoteiros[posicaoCidadeNaLista]}">${cidadesRoteiros[posicaoCidadeNaLista]}</a>`;
-            console.log(`Cidade tem roteiro! ${URLRoteiros[posicaoCidadeNaLista]}`)
+            //console.log(`Cidade tem roteiro! ${URLRoteiros[posicaoCidadeNaLista]}`)
         } else {
             resultado_pesquisa.style.display = 'block';
             resultado_pesquisa.innerHTML = `<p>A cidade pesquisada ainda não tem um roteiro</p>`

@@ -74,7 +74,7 @@ header ul a img {
 }
 
 .div_index #home_boas_vindas {
-  margin-top: 200px;
+  margin-top: 220px;
 }
 
 .div_index #home_texto {
@@ -283,7 +283,7 @@ header ul a img {
   height: 700px;
 }
 
-#botao_logoff {
+#botao_logout_perfil {
   background-color: rgb(107, 29, 9);
   cursor: pointer;
   padding: 5px;
@@ -314,7 +314,7 @@ header ul a img {
 .destinosVisitados, .destinosDesejados {
   float:left;
   width: 44%;
-  font-size: 22px;
+  font-size: 23px;
   background-color: rgba(43, 59, 43, 0.623);
   border-radius: 8px;
   color: white;
@@ -344,11 +344,11 @@ header ul a img {
 
 #contador_destinosVisitados, #contador_destinosDesejados {
   float: left;
+  margin: 10px;
 }
 
 #selo_destinoVisitado, #selo_destinoDesejado {
-  width: 45px;
-  margin-left: 15px;
+  float: left;
 }
 
 /* Fim página de Perfil */
@@ -356,33 +356,56 @@ header ul a img {
 /* Início página Sobre */
 
 .sobre_body {
-  background-image: url("../images/sobre-bg.jpg");
+  background-image: url("../images/perfil-bg5.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .sobre_body h1, .div_sobre{
-  margin-top: 20px;
-  margin-left: 25px;
+  margin: 20px;
+  margin-left: 40px;
+  color: white;
 }
 
 .div_sobre {
-  width: 80%;
-  height: 1000px;
+  width: 90%;
+  height: 1500px;
   float: left;
+  background-color: rgba(58, 59, 63, 0.699);
+  padding: 20px;
+  border-radius: 5px;
 }
 
-.div_sobre p {
+.paragrafo_1 {
   font-size: 22px;
-  width: 70%;
+  width: 80%;
   float: left;
   margin-left: 25px;
   text-align: justify;
+  padding: 15px;
+}
+
+.div_sobre .demais_paragrafos {
+  font-size: 22px;
+  width: 98%;
+  text-align: justify;
+  padding: 15px;
 }
 
 #foto_sobre {
-  width: 15vw;
+  width: 14vw;
   float: left;
+  padding-bottom: 10px;
+}
+
+.div_sobre div {
+  width: 50%;
+  margin: auto;
+}
+
+.img_sobre {
+  width: 50vw;
+  border-radius: 5px;
 }
 
 /* Fim página Sobre */
@@ -490,13 +513,13 @@ header ul a img {
   margin-bottom: 115px;
 } */
 
-.div_conteudo {
+.div_conteudo {  
+  background-color: rgb(42,44,44,0.72);
   width: 89%;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: rgba(36, 43, 59, 0.589);
   padding: 20px;
 }
 
@@ -510,9 +533,19 @@ header ul a img {
   font-size: 22px;
 }
 
-.imgs_praga {
-  width: 19.5%;
-  border-radius: 5px;
+.div_conteudo .div_imgs_praga {
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(135, 137, 145, 0.432);
+}
+
+.div_conteudo .div_imgs_praga .imgs_praga {
+  width: 18%;
+  border-radius: 10px;
+  padding: 6px;
+  margin: 3px;
 }
 
 .div_conteudo iframe {
@@ -522,14 +555,66 @@ header ul a img {
   margin-left: auto;
 }
 
-div .imgs_refs_praga {
-  width: 17.5%;
-  border-radius: 5px;
-  margin: 5px;
+.div_conteudo .div_refs_praga {
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(135, 137, 145, 0.432);
 }
 
-.div_conteudo div {
-  margin-left: 30%;
+.div_conteudo .div_refs_praga .imgs_refs_praga {
+  width: 22%;
+  border-radius: 5px;
+  margin: 5px;
+  margin-left: 8%;
+}
+
+/* CALCULADORA */
+.div_conteudo .div_conversor {
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(135, 137, 145, 0.432);
+  text-align: center;
+}
+
+.div_conteudo .div_conversor input {
+  font-size: 18px;
+  height: 27px;
+  background-color: #f2f2f2;
+  border: 1.5px solid #323232;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.div_conteudo .div_conversor select {
+  height:29px;
+  width: 200px;
+  font-size: 17px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.div_conteudo .div_conversor button {
+  cursor: pointer;
+  background-color: rgb(43, 59, 43);
+  padding: 5px;
+  width: 20%;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  height: 40px;
+}
+
+.logo_conversor {
+  width: 100px;
+}
+
+#div_resultado_conversao {
+  text-align: center;
 }
 
 /* Fim página Praga (Roteiro) */
@@ -554,7 +639,7 @@ div .imgs_refs_praga {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: rgba(70, 76, 88, 0.356);
+  background-color: rgb(42,44,44,0.72);
   padding: 20px;
 }
 
@@ -586,7 +671,7 @@ div .imgs_refs_budapeste {
   margin: 5px;
 }
 
-.div_conteudo div {
+#div_conteudo_budapeste {
   margin-left: 30%;
 }
 
